@@ -31,20 +31,22 @@ class GameSprite(sprite.Sprite):
 
 
 class Player1(GameSprite):
+    global left, right, up, down
+
     def update(self):
-        keys = key.get_pressed()
-        if keys[K_w] and self.rect.y > 0:
+        if up and self.rect.y > 0:
             self.rect.y -= self.speed
-        if keys[K_s] and self.rect.y < 700 - self.height:
+        if down and self.rect.y < 700 - self.height:
             self.rect.y += self.speed
 
 
 class Player2(GameSprite):
+    global left, right, up, down
+
     def update(self):
-        keys = key.get_pressed()
-        if keys[K_u] and self.rect.y > 0:
+        if up and self.rect.y > 0:
             self.rect.y -= self.speed
-        if keys[K_j] and self.rect.y < 700 - self.height:
+        if down and self.rect.y < 700 - self.height:
             self.rect.y += self.speed
 
 
@@ -142,13 +144,21 @@ point21 = font1.render(str(point2), True, (0, 0, 0))
 vs = font1.render(':', True, (0, 0, 0))
 clock = time.Clock()
 player1 = Player1(2, 'блок1-transformed.png', 100, 250, 20, 130)
-player2 = Player2(2, 'блок2-transformed.png', 880, 250, 20, 130)
+player2 = Player2(1, 'блок2-transformed.png', 880, 250, 20, 130)
 ball = Ball(1, 'мяч-transformed.png', 480, 350, 100, 99)
 
 col1 = sprite.collide_rect(ball, player1)
 col2 = sprite.collide_rect(ball, player2)
-
+everytick = 0
+pos = 350
+once2 = False
 while True:
+    everytick += 1
+    if everytick >= 60:
+        ball.speed += 1
+        player1.speed += 1
+        player2.speed += 1
+        everytick = 0
 
     point12 = font1.render(str(point1), True, (0, 0, 0))
     point21 = font1.render(str(point2), True, (0, 0, 0))

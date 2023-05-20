@@ -40,11 +40,12 @@ class Player1(GameSprite):
 
 
 class Player2(GameSprite):
+    global left, right, up, down
+
     def update(self):
-        keys = key.get_pressed()
-        if keys[K_u] and self.rect.y > 0:
+        if up and self.rect.y > 0:
             self.rect.y -= self.speed
-        if keys[K_j] and self.rect.y < 700 - self.height:
+        if down and self.rect.y < 700 - self.height:
             self.rect.y += self.speed
 
 
@@ -142,7 +143,7 @@ point21 = font1.render(str(point2), True, (0, 0, 0))
 vs = font1.render(':', True, (0, 0, 0))
 clock = time.Clock()
 player1 = Player1(2, 'блок1-transformed.png', 100, 250, 20, 130)
-player2 = Player2(2, 'блок2-transformed.png', 880, 250, 20, 130)
+player2 = Player2(1, 'блок2-transformed.png', 880, 250, 20, 130)
 ball = Ball(1, 'мяч-transformed.png', 480, 350, 100, 99)
 
 col1 = sprite.collide_rect(ball, player1)
